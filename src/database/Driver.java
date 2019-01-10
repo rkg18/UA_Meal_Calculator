@@ -41,8 +41,11 @@ public class Driver {
 			int id = testSet.getInt("idfood");
 			String name = testSet.getString("name");
 			int calories = testSet.getInt("calories");
+			int fat = testSet.getInt("fat");
+			int carbohydrates = testSet.getInt("carbohydrates");
+			int protein = testSet.getInt("protein");
 			
-			System.out.format("%s is the ID %s is the food %s is the calories\n", id, name, calories);
+			System.out.format("%s - %s - %s - %s - %s - %s\n", id, name, calories, fat, carbohydrates, protein);
 		}
 	}
 	

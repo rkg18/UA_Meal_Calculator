@@ -1,3 +1,9 @@
+/*
+ * Raymond Gines
+ * github.com/rkg18/meal_calculator.git
+ * Simple Meal Builder GUI Application for University of Akron Restaurants
+ */
+
 package main;
 
 import java.sql.SQLException;
