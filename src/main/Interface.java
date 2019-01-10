@@ -7,8 +7,8 @@
 package main;
 
 import java.sql.SQLException;
-
 import database.Driver;
+import java.util.Scanner;
 
 public class Interface {
 
@@ -18,7 +18,28 @@ public class Interface {
 		
 		myDriver.getConnection();
 		
-		myDriver.viewMenu();
+		System.out.println("1. View Menu\n"
+				+ "2. Add New Menu Item\n"
+				+ "3. Edit Menu Item\n"
+				+ "4. Delete Menu Item\n"
+				+ "\nEnter Choice: ");
+		
+		Scanner reader = new Scanner(System.in);
+		
+		int choice = reader.nextInt(); //Gets user input choice
+		
+		// Performs corresponding menu option
+		switch(choice)
+		{
+			case 1: 
+				myDriver.viewMenu();
+				break;
+			case 2: 
+				System.out.println("other...");
+				break;
+		}
+		
+		myDriver.closeConnection();
 	}
 	
 }

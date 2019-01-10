@@ -21,7 +21,7 @@ public class Driver {
 			
 			conn = DriverManager.getConnection(url, username, password);
 			
-			System.out.println("You are connected...");
+			System.out.println("You are connected...\n");
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -48,5 +48,13 @@ public class Driver {
 			System.out.format("%s - %s - %s - %s - %s - %s\n", id, name, calories, fat, carbohydrates, protein);
 		}
 	}
+	
+	public void addMenuItem() {}
+	
+	public void deleteMenuItem() {}
+	
+	public void editMenuItem() {}
+	
+	public void closeConnection() throws SQLException {conn.close();}
 	
 }
