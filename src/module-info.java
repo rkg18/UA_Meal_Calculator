@@ -6,5 +6,6 @@
  *
  */
 module meal_calculator {
+	requires java.sql;
 	
 }
