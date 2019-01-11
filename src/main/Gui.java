@@ -1,34 +1,41 @@
 package main;
 
 import java.awt.*;
-import java.awt.event.*; 
+import java.awt.event.*;  
 
 public class Gui extends Frame implements ActionListener {
-	TextField tf;
+	Label label = new Label();
+	Button b = new Button("Click");
+	Choice c = new Choice();
 	
 	Gui()
 	{
+		label.setAlignment(Label.CENTER);
+		label.setSize(400,100);
 		
+		b.setBounds(200,100,50,20);
+		b.addActionListener(this);
 		
-		//create components  
-		tf=new TextField();  
-		tf.setBounds(60,50,170,20);  
-		Button b=new Button("click me");  
-		b.setBounds(100,120,80,30);  
-		  
-		// Register Listener Objects
-		b.addActionListener(this); //passing current instance  
-		addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){dispose();}});  
+		c.setBounds(100,100,75,75);
+		c.add("Pizza");
+		c.add("Burger");
+		c.add("Steak");
+		c.add("Chicken");
 		
-		//add components and set size, layout and visibility  
-		add(b);add(tf);  
-		setSize(300,300);  
-		setLayout(null);  
-		setVisible(true);  
+		add(c);
+		add(b);
+		add(label);
+		
+		setSize(400,400);
+		setLayout(null);
+		setVisible(true);
+		
+		addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){dispose();}}); 
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		tf.setText("Welcome!");
+		String data = c.getItem(c.getSelectedIndex());
+		label.setText(data);
 	}
 		
 }
