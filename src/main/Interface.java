@@ -9,11 +9,15 @@ package main;
 import java.sql.SQLException;
 import database.Driver;
 import java.util.Scanner;
+import main.Gui;
 
 public class Interface {
 
 	public static void main(String[] args) throws SQLException
 	{
+		Gui window = new Gui();
+		
+		/*
 		Driver myDriver = new Driver();
 		
 		myDriver.getConnection();
@@ -40,6 +44,7 @@ public class Interface {
 		}
 		
 		myDriver.closeConnection();
+		*/
 	}
 	
 }
