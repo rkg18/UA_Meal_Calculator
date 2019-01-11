@@ -43,20 +43,37 @@ public class Gui extends Frame implements ActionListener {
 		addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){dispose();}}); 
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		// TODO: Add Performance
+	public void actionPerformed(ActionEvent e){
+		String name = myList.getItem(myList.getSelectedIndex());
+		
+		ResultSet info;
+		
+		try {
+			info = driver.getNutritionInfo(name);
+		
+			info.next();
+			
+			int calories = info.getInt("calories");
+			int fat = info.getInt("fat");
+			int carbohydrates= info.getInt("carbohydrates");
+			int protein = info.getInt("protein");
+			
+			label.setText(calories + " " + fat + " " + carbohydrates + " " + protein);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}	
 	}
 	
 	public void createList(int numberOfItems) throws SQLException
 	{	
 		myList = new List(numberOfItems);
 		myList.setBounds(100,100,100,100);
-		ResultSet menu = driver.viewMenu();
+		ResultSet menuItems = driver.viewMenu();
 		
 		// Adds Menu Items to List Box
-		while(menu.next())
+		while(menuItems.next())
 		{
-			myList.add(menu.getString("name"));
+			myList.add(menuItems.getString("name"));
 		}
 	}
 	

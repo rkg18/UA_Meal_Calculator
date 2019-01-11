@@ -37,19 +37,6 @@ public class Driver {
 		ResultSet testSet = stm.executeQuery(sqlQuery);
 		
 		return testSet;
-		/*
-		while (testSet.next())
-		{
-			int id = testSet.getInt("idfood");
-			String name = testSet.getString("name");
-			int calories = testSet.getInt("calories");
-			int fat = testSet.getInt("fat");
-			int carbohydrates = testSet.getInt("carbohydrates");
-			int protein = testSet.getInt("protein");
-			
-			System.out.format("%s - %s - %s - %s - %s - %s\n", id, name, calories, fat, carbohydrates, protein);
-		}
-		*/
 	}
 	
 	public int countMenuItems() throws SQLException
@@ -63,6 +50,17 @@ public class Driver {
 		result.close();
 		
 		return count;
+	}
+	
+	public ResultSet getNutritionInfo(String foodItem) throws SQLException
+	{
+		String query = "SELECT calories, fat, protein, carbohydrates FROM food WHERE name = \"" + foodItem + "\"";
+		System.out.println(query);
+		Statement stm = conn.createStatement();
+		ResultSet testSet = stm.executeQuery(query);
+		
+		return testSet;
+		
 	}
 	
 	public void addMenuItem() {}
