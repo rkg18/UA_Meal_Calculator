@@ -28,7 +28,7 @@ public class Driver {
 		}
 	}
 	
-	public void viewMenu() throws SQLException
+	public ResultSet viewMenu() throws SQLException
 	{
 		String sqlQuery = "Select * FROM food";
 		
@@ -36,6 +36,8 @@ public class Driver {
 		
 		ResultSet testSet = stm.executeQuery(sqlQuery);
 		
+		return testSet;
+		/*
 		while (testSet.next())
 		{
 			int id = testSet.getInt("idfood");
@@ -47,6 +49,7 @@ public class Driver {
 			
 			System.out.format("%s - %s - %s - %s - %s - %s\n", id, name, calories, fat, carbohydrates, protein);
 		}
+		*/
 	}
 	
 	public int countMenuItems() throws SQLException

@@ -2,6 +2,7 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import database.Driver;
@@ -46,13 +47,17 @@ public class Gui extends Frame implements ActionListener {
 		// TODO: Add Performance
 	}
 	
-	public void createList(int numberOfItems)
+	public void createList(int numberOfItems) throws SQLException
 	{	
 		myList = new List(numberOfItems);
 		myList.setBounds(100,100,100,100);
-		myList.add("Pizza");
-		myList.add("Burger");
-		myList.add("Steak");
+		ResultSet menu = driver.viewMenu();
+		
+		// Adds Menu Items to List Box
+		while(menu.next())
+		{
+			myList.add(menu.getString("name"));
+		}
 	}
 	
 	public void createMenu()
