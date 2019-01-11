@@ -1,14 +1,21 @@
 package main;
 
 import java.awt.*;
-import java.awt.event.*;  
+import java.awt.event.*;
+import java.sql.SQLException;
+
+import database.Driver;
 
 public class Gui extends Frame implements ActionListener {
 	Label label = new Label();
 	Button b = new Button("Click");
-	Choice c = new Choice();
+	MenuBar mb = new MenuBar();
+	List myList;
 	
-	Gui()
+	// Database Class
+	Driver driver = new Driver();
+	
+	Gui() throws SQLException
 	{
 		label.setAlignment(Label.CENTER);
 		label.setSize(400,100);
@@ -16,26 +23,47 @@ public class Gui extends Frame implements ActionListener {
 		b.setBounds(200,100,50,20);
 		b.addActionListener(this);
 		
-		c.setBounds(100,100,75,75);
-		c.add("Pizza");
-		c.add("Burger");
-		c.add("Steak");
-		c.add("Chicken");
+		// Connects to MySQL 'Meal_Calculator' Database
+		driver.getConnection();
 		
-		add(c);
+		createMenu();
+		createList(driver.countMenuItems());
+		
+		add(myList);
 		add(b);
 		add(label);
 		
 		setSize(400,400);
 		setLayout(null);
 		setVisible(true);
+		setMenuBar(mb);
 		
+		// Corner 'X' Button
 		addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){dispose();}}); 
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		String data = c.getItem(c.getSelectedIndex());
-		label.setText(data);
+		// TODO: Add Performance
+	}
+	
+	public void createList(int numberOfItems)
+	{	
+		myList = new List(numberOfItems);
+		myList.setBounds(100,100,100,100);
+		myList.add("Pizza");
+		myList.add("Burger");
+		myList.add("Steak");
+	}
+	
+	public void createMenu()
+	{	
+		Menu menu = new Menu("Directory");
+		
+		MenuItem item1 = new MenuItem("Menu");
+		MenuItem item2 = new MenuItem("Calculate Calories");
+		
+		menu.add(item1); menu.add(item2);
+		mb.add(menu);
 	}
 		
 }

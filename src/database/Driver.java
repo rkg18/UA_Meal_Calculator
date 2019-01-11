@@ -49,6 +49,19 @@ public class Driver {
 		}
 	}
 	
+	public int countMenuItems() throws SQLException
+	{
+		String query = "SELECT Count(*) AS rowcount FROM food";
+		Statement stm = conn.createStatement();
+		ResultSet result = stm.executeQuery(query);
+		
+		result.next();
+		int count = result.getInt("rowcount");
+		result.close();
+		
+		return count;
+	}
+	
 	public void addMenuItem() {}
 	
 	public void deleteMenuItem() {}
