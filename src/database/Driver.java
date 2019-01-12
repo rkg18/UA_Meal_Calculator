@@ -31,11 +31,8 @@ public class Driver {
 	public ResultSet viewMenu() throws SQLException
 	{
 		String sqlQuery = "Select * FROM food";
-		
 		Statement stm = conn.createStatement();
-		
 		ResultSet testSet = stm.executeQuery(sqlQuery);
-		
 		return testSet;
 	}
 	
@@ -55,19 +52,12 @@ public class Driver {
 	public ResultSet getNutritionInfo(String foodItem) throws SQLException
 	{
 		String query = "SELECT calories, fat, protein, carbohydrates FROM food WHERE name = \"" + foodItem + "\"";
-		System.out.println(query);
 		Statement stm = conn.createStatement();
 		ResultSet testSet = stm.executeQuery(query);
-		
 		return testSet;
 		
 	}
-	
-	public void addMenuItem() {}
-	
-	public void deleteMenuItem() {}
-	
-	public void editMenuItem() {}
+
 	
 	public void closeConnection() throws SQLException {conn.close();}
 	

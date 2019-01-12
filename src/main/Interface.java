@@ -16,16 +16,6 @@ public class Interface {
 	public static void main(String[] args) throws SQLException
 	{
 		Gui window = new Gui();
-		
-		/*
-		Driver myDriver = new Driver();
-		
-		myDriver.getConnection();
-		
-		System.out.println(myDriver.countMenuItems());
-		
-		myDriver.closeConnection();
-		*/
 	}
 	
 }

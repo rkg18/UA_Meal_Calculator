@@ -12,6 +12,7 @@ public class Gui extends Frame implements ActionListener {
 	Button b = new Button("Click");
 	MenuBar mb = new MenuBar();
 	List myList;
+	Button addItem = new Button("Add Item");
 	
 	// Database Class
 	Driver driver = new Driver();
@@ -19,22 +20,26 @@ public class Gui extends Frame implements ActionListener {
 	Gui() throws SQLException
 	{
 		label.setAlignment(Label.CENTER);
-		label.setSize(400,100);
+		label.setSize(250,100);
 		
-		b.setBounds(200,100,50,20);
+		b.setBounds(175,75,60,20);
 		b.addActionListener(this);
+		
+		addItem.setBounds(200,100,60,20);
+		addItem.addActionListener(this);
 		
 		// Connects to MySQL 'Meal_Calculator' Database
 		driver.getConnection();
 		
-		createMenu();
+		createFileMenu();
 		createList(driver.countMenuItems());
 		
 		add(myList);
 		add(b);
 		add(label);
+		add(addItem);
 		
-		setSize(400,400);
+		setSize(300,250);
 		setLayout(null);
 		setVisible(true);
 		setMenuBar(mb);
@@ -44,30 +49,39 @@ public class Gui extends Frame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		String name = myList.getItem(myList.getSelectedIndex());
-		
-		ResultSet info;
-		
-		try {
-			info = driver.getNutritionInfo(name);
-		
-			info.next();
+		if(e.getSource() == b)
+		{
+			String name = myList.getItem(myList.getSelectedIndex());
 			
-			int calories = info.getInt("calories");
-			int fat = info.getInt("fat");
-			int carbohydrates= info.getInt("carbohydrates");
-			int protein = info.getInt("protein");
+			ResultSet info;
 			
-			label.setText(calories + " " + fat + " " + carbohydrates + " " + protein);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}	
+			try {
+				info = driver.getNutritionInfo(name);
+			
+				info.next();
+				
+				int calories = info.getInt("calories");
+				int fat = info.getInt("fat");
+				int carbohydrates= info.getInt("carbohydrates");
+				int protein = info.getInt("protein");
+				
+				label.setText(calories + " " + fat + " " + carbohydrates + " " + protein);
+				
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}	
+		}
+		else if(e.getSource() == addItem)
+		{
+			label.setText("hello world!");
+		}
+		
 	}
 	
 	public void createList(int numberOfItems) throws SQLException
 	{	
 		myList = new List(numberOfItems);
-		myList.setBounds(100,100,100,100);
+		myList.setBounds(50,75,100,70);
 		ResultSet menuItems = driver.viewMenu();
 		
 		// Adds Menu Items to List Box
@@ -77,13 +91,11 @@ public class Gui extends Frame implements ActionListener {
 		}
 	}
 	
-	public void createMenu()
+	public void createFileMenu()
 	{	
 		Menu menu = new Menu("Directory");
-		
 		MenuItem item1 = new MenuItem("Menu");
 		MenuItem item2 = new MenuItem("Calculate Calories");
-		
 		menu.add(item1); menu.add(item2);
 		mb.add(menu);
 	}
