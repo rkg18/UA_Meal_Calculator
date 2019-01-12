@@ -58,7 +58,6 @@ public class Driver {
 		
 	}
 
-	
 	public void closeConnection() throws SQLException {conn.close();}
 	
 }

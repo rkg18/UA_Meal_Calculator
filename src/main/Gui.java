@@ -23,12 +23,7 @@ public class Gui extends Frame implements ActionListener {
 	
 	Gui() throws SQLException
 	{
-		/*
-		lblCalories.setSize(250,100);
-		lblFat.setSize(250,100);
-		lblProtein.setSize(250,100);
-		lblCarbohydrates.setSize(250,100);
-		*/
+		// Set Size and Position of the Nutrition Labels
 		lblCalories.setBounds(200, 75, 150, 25);
 		lblFat.setBounds(200, 100, 150, 25);
 		lblProtein.setBounds(200, 125, 150, 25);
