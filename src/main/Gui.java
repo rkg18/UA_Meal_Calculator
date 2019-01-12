@@ -8,8 +8,12 @@ import java.sql.SQLException;
 import database.Driver;
 
 public class Gui extends Frame implements ActionListener {
-	Label label = new Label();
-	Button b = new Button("Click");
+	Label lblCalories = new Label();
+	Label lblFat = new Label();
+	Label lblProtein = new Label();
+	Label lblCarbohydrates = new Label();
+	
+	Button b = new Button("See Nutrition Info");
 	MenuBar mb = new MenuBar();
 	List myList;
 	Button addItem = new Button("Add Item");
@@ -19,32 +23,44 @@ public class Gui extends Frame implements ActionListener {
 	
 	Gui() throws SQLException
 	{
-		label.setAlignment(Label.CENTER);
-		label.setSize(250,100);
+		/*
+		lblCalories.setSize(250,100);
+		lblFat.setSize(250,100);
+		lblProtein.setSize(250,100);
+		lblCarbohydrates.setSize(250,100);
+		*/
+		lblCalories.setBounds(200, 75, 150, 25);
+		lblFat.setBounds(200, 100, 150, 25);
+		lblProtein.setBounds(200, 125, 150, 25);
+		lblCarbohydrates.setBounds(200, 150, 150, 25);
 		
-		b.setBounds(175,75,60,20);
+		// Button Objects
+		b.setBounds(50,150,100,20);
 		b.addActionListener(this);
 		
-		addItem.setBounds(200,100,60,20);
+		addItem.setBounds(50,175,100,20);
 		addItem.addActionListener(this);
 		
 		// Connects to MySQL 'Meal_Calculator' Database
 		driver.getConnection();
 		
+		// File and Menu Creation
 		createFileMenu();
 		createList(driver.countMenuItems());
 		
+		// Adds Objects to Frame
 		add(myList);
 		add(b);
-		add(label);
+		add(lblCalories); add(lblFat); add(lblProtein); add(lblCarbohydrates);
 		add(addItem);
 		
-		setSize(300,250);
+		// Sets the Size and Items on the Frame
+		setSize(500,300);
 		setLayout(null);
 		setVisible(true);
 		setMenuBar(mb);
 		
-		// Corner 'X' Button
+		// Implements Corner 'X' Button
 		addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){dispose();}}); 
 	}
 	
@@ -65,7 +81,10 @@ public class Gui extends Frame implements ActionListener {
 				int carbohydrates= info.getInt("carbohydrates");
 				int protein = info.getInt("protein");
 				
-				label.setText(calories + " " + fat + " " + carbohydrates + " " + protein);
+				lblCalories.setText("Calories: " + calories);
+				lblFat.setText("Fat: " + fat + "g");
+				lblProtein.setText("Protein: " + protein + "g");
+				lblCarbohydrates.setText("Carbohydrates: " + carbohydrates + "g");
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
@@ -73,7 +92,7 @@ public class Gui extends Frame implements ActionListener {
 		}
 		else if(e.getSource() == addItem)
 		{
-			label.setText("hello world!");
+			lblCalories.setText("hello world!");
 		}
 		
 	}
