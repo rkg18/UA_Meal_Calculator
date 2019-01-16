@@ -7,8 +7,6 @@
 package main;
 
 import java.sql.SQLException;
-import database.Driver;
-import java.util.Scanner;
 import main.Gui;
 
 public class Interface {

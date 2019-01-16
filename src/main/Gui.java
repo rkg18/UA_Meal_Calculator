@@ -14,9 +14,11 @@ public class Gui extends Frame implements ActionListener {
 	Label lblCarbohydrates = new Label();
 	
 	Button b = new Button("See Nutrition Info");
+	Button addItem = new Button("Add");
+	Button removeItem = new Button("Remove");
 	MenuBar mb = new MenuBar();
 	List myList;
-	Button addItem = new Button("Add Item");
+	List myMenu;
 	
 	// Database Class
 	Driver driver = new Driver();
@@ -36,18 +38,21 @@ public class Gui extends Frame implements ActionListener {
 		addItem.setBounds(50,175,100,20);
 		addItem.addActionListener(this);
 		
+		removeItem.setBounds(350,175,100,20);
+		removeItem.addActionListener(this);
+		
 		// Connects to MySQL 'Meal_Calculator' Database
 		driver.getConnection();
 		
 		// File and Menu Creation
 		createFileMenu();
 		createList(driver.countMenuItems());
+		createMyMenu();
 		
 		// Adds Objects to Frame
-		add(myList);
-		add(b);
-		add(lblCalories); add(lblFat); add(lblProtein); add(lblCarbohydrates);
-		add(addItem);
+		add(myList); add(myMenu); // Lists
+		add(b); add(removeItem); add(addItem); // Buttons
+		add(lblCalories); add(lblFat); add(lblProtein); add(lblCarbohydrates); // Labels
 		
 		// Sets the Size and Items on the Frame
 		setSize(500,300);
@@ -60,12 +65,11 @@ public class Gui extends Frame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e){
+		String name = myList.getItem(myList.getSelectedIndex());
+		ResultSet info;
+		
 		if(e.getSource() == b)
 		{
-			String name = myList.getItem(myList.getSelectedIndex());
-			
-			ResultSet info;
-			
 			try {
 				info = driver.getNutritionInfo(name);
 			
@@ -87,7 +91,11 @@ public class Gui extends Frame implements ActionListener {
 		}
 		else if(e.getSource() == addItem)
 		{
-			lblCalories.setText("hello world!");
+			myMenu.add(name);
+		}
+		else if(e.getSource() == removeItem)
+		{
+			myMenu.remove(name);
 		}
 		
 	}
@@ -103,6 +111,12 @@ public class Gui extends Frame implements ActionListener {
 		{
 			myList.add(menuItems.getString("name"));
 		}
+	}
+	
+	public void createMyMenu()
+	{
+		myMenu = new List();
+		myMenu.setBounds(350,75,100,70);
 	}
 	
 	public void createFileMenu()
