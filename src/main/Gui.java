@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import database.Driver;
 
@@ -19,6 +20,12 @@ public class Gui extends Frame implements ActionListener {
 	MenuBar mb = new MenuBar();
 	List myList;
 	List myMenu;
+	
+	ArrayList<String> itemNames = new ArrayList<String>(0);
+	ArrayList<Integer> itemCalories= new ArrayList<Integer>(0);
+	ArrayList<Integer> itemProtein = new ArrayList<Integer>(0);
+	ArrayList<Integer> itemCarbohydrates = new ArrayList<Integer>(0);
+	ArrayList<Integer> itemFat = new ArrayList<Integer>(0);
 	
 	// Database Class
 	Driver driver = new Driver();
@@ -68,36 +75,43 @@ public class Gui extends Frame implements ActionListener {
 		String name = myList.getItem(myList.getSelectedIndex());
 		ResultSet info;
 		
+		int calories=0;
+		int fat=0;
+		int carbohydrates=0;
+		int protein=0;
+		
+		try {
+			info = driver.getNutritionInfo(name);
+			info.next();
+			
+			calories = info.getInt("calories");
+			fat = info.getInt("fat");
+			carbohydrates= info.getInt("carbohydrates");
+			protein = info.getInt("protein");
+		} catch (SQLException e1) {e1.printStackTrace();}
+		
 		if(e.getSource() == b)
 		{
-			try {
-				info = driver.getNutritionInfo(name);
 			
-				info.next();
-				
-				int calories = info.getInt("calories");
-				int fat = info.getInt("fat");
-				int carbohydrates= info.getInt("carbohydrates");
-				int protein = info.getInt("protein");
-				
-				lblCalories.setText("Calories: " + calories);
-				lblFat.setText("Fat: " + fat + "g");
-				lblProtein.setText("Protein: " + protein + "g");
-				lblCarbohydrates.setText("Carbohydrates: " + carbohydrates + "g");
-				
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}	
+			lblCalories.setText("Calories: " + calories);
+			lblFat.setText("Fat: " + fat + "g");
+			lblProtein.setText("Protein: " + protein + "g");
+			lblCarbohydrates.setText("Carbohydrates: " + carbohydrates + "g");
 		}
 		else if(e.getSource() == addItem)
-		{
+		{	
 			myMenu.add(name);
+			itemNames.add(name);
+			itemCalories.add(calories);
+			itemProtein.add(protein);
+			itemFat.add(fat);
+			itemCarbohydrates.add(carbohydrates);
 		}
 		else if(e.getSource() == removeItem)
 		{
-			myMenu.remove(name);
+			String oldItem = myMenu.getItem(myMenu.getSelectedIndex());
+			myMenu.remove(oldItem);
 		}
-		
 	}
 	
 	public void createList(int numberOfItems) throws SQLException
