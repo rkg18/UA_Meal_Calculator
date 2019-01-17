@@ -1,7 +1,8 @@
 /*
  * Raymond Gines
  * github.com/rkg18/meal_calculator.git
- * Simple Meal Builder GUI Application for University of Akron Restaurants
+ * Simple Meal Builder GUI Application
+ * View Macro Nutrients of Popular Food Items and Add Them to Build Meal Based on Nutrition
  */
 
 package main;

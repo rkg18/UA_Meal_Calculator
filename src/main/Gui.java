@@ -1,5 +1,10 @@
 package main;
 
+/*
+ * This Gui Class controls the components that are in the Frame. This will be what the user
+ * is interacting throughout their application use.
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
@@ -33,19 +38,19 @@ public class Gui extends Frame implements ActionListener {
 	Gui() throws SQLException
 	{
 		// Set Size and Position of the Nutrition Labels
-		lblCalories.setBounds(200, 75, 150, 25);
-		lblFat.setBounds(200, 100, 150, 25);
-		lblProtein.setBounds(200, 125, 150, 25);
-		lblCarbohydrates.setBounds(200, 150, 150, 25);
+		lblCalories.setBounds(200, 70, 150, 25);
+		lblFat.setBounds(200, 90, 150, 25);
+		lblProtein.setBounds(200, 110, 150, 25);
+		lblCarbohydrates.setBounds(200, 130, 150, 25);
 		
 		// Button Objects
-		b.setBounds(50,150,100,20);
+		b.setBounds(50,50,100,20);
 		b.addActionListener(this);
 		
-		addItem.setBounds(50,175,100,20);
+		addItem.setBounds(50,150,100,20);
 		addItem.addActionListener(this);
 		
-		removeItem.setBounds(350,175,100,20);
+		removeItem.setBounds(350,150,100,20);
 		removeItem.addActionListener(this);
 		
 		// Connects to MySQL 'Meal_Calculator' Database
@@ -114,6 +119,7 @@ public class Gui extends Frame implements ActionListener {
 		}
 	}
 	
+	// Creates the List of Available Food Items
 	public void createList(int numberOfItems) throws SQLException
 	{	
 		myList = new List(numberOfItems);
@@ -127,12 +133,14 @@ public class Gui extends Frame implements ActionListener {
 		}
 	}
 	
+	// Creates the List Object for items to be Added to
 	public void createMyMenu()
 	{
 		myMenu = new List();
 		myMenu.setBounds(350,75,100,70);
 	}
 	
+	// Creates a Menu Bar at Top of the Frmae
 	public void createFileMenu()
 	{	
 		Menu menu = new Menu("Directory");

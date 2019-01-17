@@ -9,7 +9,8 @@ public class Driver {
 	{
 		conn = null;
 	}
-		
+	
+	// Instantiates a connection to the food database
 	public void getConnection() throws SQLException
 	{
 		try {
@@ -28,6 +29,7 @@ public class Driver {
 		}
 	}
 	
+	// Returns a result set containing all the food options in the database
 	public ResultSet viewMenu() throws SQLException
 	{
 		String sqlQuery = "Select * FROM food";
@@ -36,6 +38,7 @@ public class Driver {
 		return testSet;
 	}
 	
+	// Returns a count of the number of available food items inside the menu database
 	public int countMenuItems() throws SQLException
 	{
 		String query = "SELECT Count(*) AS rowcount FROM food";
@@ -49,13 +52,13 @@ public class Driver {
 		return count;
 	}
 	
+	// Returns the Row of an object dependent on the food item name passed
 	public ResultSet getNutritionInfo(String foodItem) throws SQLException
 	{
 		String query = "SELECT calories, fat, protein, carbohydrates FROM food WHERE name = \"" + foodItem + "\"";
 		Statement stm = conn.createStatement();
 		ResultSet testSet = stm.executeQuery(query);
 		return testSet;
-		
 	}
 
 	public void closeConnection() throws SQLException {conn.close();}
