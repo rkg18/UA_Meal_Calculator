@@ -19,6 +19,8 @@ public class Gui extends Frame implements ActionListener {
 	Label lblProtein = new Label();
 	Label lblCarbohydrates = new Label();
 	
+	Label lblTotalInfo = new Label();
+	
 	Button b = new Button("See Nutrition Info");
 	Button addItem = new Button("Add");
 	Button removeItem = new Button("Remove");
@@ -42,6 +44,7 @@ public class Gui extends Frame implements ActionListener {
 		lblFat.setBounds(200, 90, 150, 25);
 		lblProtein.setBounds(200, 110, 150, 25);
 		lblCarbohydrates.setBounds(200, 130, 150, 25);
+		lblTotalInfo.setBounds(225, 200, 150, 25);
 		
 		// Button Objects
 		b.setBounds(50,50,100,20);
@@ -64,7 +67,7 @@ public class Gui extends Frame implements ActionListener {
 		// Adds Objects to Frame
 		add(myList); add(myMenu); // Lists
 		add(b); add(removeItem); add(addItem); // Buttons
-		add(lblCalories); add(lblFat); add(lblProtein); add(lblCarbohydrates); // Labels
+		add(lblCalories); add(lblFat); add(lblProtein); add(lblCarbohydrates); add(lblTotalInfo); // Labels
 		
 		// Sets the Size and Items on the Frame
 		setSize(500,300);
@@ -115,8 +118,23 @@ public class Gui extends Frame implements ActionListener {
 		else if(e.getSource() == removeItem)
 		{
 			String oldItem = myMenu.getItem(myMenu.getSelectedIndex());
+			itemNames.remove(myMenu.getSelectedIndex());
+			itemCalories.remove(myMenu.getSelectedIndex());
+			itemProtein.remove(myMenu.getSelectedIndex());
+			itemFat.remove(myMenu.getSelectedIndex());
+			itemCarbohydrates.remove(myMenu.getSelectedIndex());
 			myMenu.remove(oldItem);
 		}
+		
+		int totalCalories = calculateTotalInfo(itemCalories);
+		int totalProtein = calculateTotalInfo(itemProtein);
+		int totalFat = calculateTotalInfo(itemFat);
+		int totalCarbohydrates = calculateTotalInfo(itemCarbohydrates);
+		
+		lblTotalInfo.setText(Integer.toString(totalCalories) + " "
+				+ Integer.toString(totalProtein) + " "
+				+ Integer.toString(totalFat) + " "
+				+ Integer.toString(totalCarbohydrates));
 	}
 	
 	// Creates the List of Available Food Items
@@ -148,6 +166,18 @@ public class Gui extends Frame implements ActionListener {
 		MenuItem item2 = new MenuItem("Calculate Calories");
 		menu.add(item1); menu.add(item2);
 		mb.add(menu);
+	}
+	
+	public int calculateTotalInfo(ArrayList<Integer> arr)
+	{
+		int total = 0;
+		
+		for(Integer num: arr)
+		{
+			total += num;
+		}
+		
+		return total;
 	}
 		
 }
